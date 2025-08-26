@@ -9,6 +9,14 @@ git submodule update
 # local.conf won't exist until this step on first execution
 source poky/oe-init-build-env
 
+# Replace auto-generated local.conf with repo-tracked template
+if [ -f ../meta-aesd/conf/local.conf.sample ]; then
+    echo "Using repo-tracked local.conf.sample"
+    cp ../meta-aesd/conf/local.conf.sample conf/local.conf
+else
+    echo "WARNING: local.conf.sample not found, using default generated one"
+fi
+
 CONFLINE="MACHINE = \"qemuarm64\""
 
 cat conf/local.conf | grep "${CONFLINE}" > /dev/null
