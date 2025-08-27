@@ -2,6 +2,9 @@
 # Script to build image for qemu.
 # Author: Siddhant Jajoo.
 
+# Force Yocto-compatible umask for CI
+umask 0002
+
 git submodule init
 git submodule sync
 git submodule update
