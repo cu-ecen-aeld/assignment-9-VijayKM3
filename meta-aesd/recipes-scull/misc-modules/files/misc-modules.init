@@ -1,0 +1,35 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          misc-modules
+# Required-Start:    $local_fs
+# Default-Start:     2 3 4 5
+# Short-Description: Load misc LDD3 modules
+### END INIT INFO
+
+MODDIR=/lib/modules/$(uname -r)/extra
+
+case "$1" in
+  start)
+    # Load just the modules you built (adjust list if needed)
+    for m in hello jit faulty; do
+      if [ -f "$MODDIR/$m.ko" ]; then
+        /sbin/insmod "$MODDIR/$m.ko" 2>/dev/null || /sbin/modprobe "$m" || true
+      fi
+    done
+    ;;
+  stop)
+    for m in faulty jit hello; do
+      /sbin/rmmod "$m" 2>/dev/null || true
+    done
+    ;;
+  restart)
+    $0 stop
+    $0 start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+    ;;
+esac
+exit 0
+

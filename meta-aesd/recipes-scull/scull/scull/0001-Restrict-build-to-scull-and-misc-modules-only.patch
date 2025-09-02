@@ -1,0 +1,25 @@
+From 782677f2de33dca890003d137ffcae369c9c2e68 Mon Sep 17 00:00:00 2001
+From: vijaykum <vijaykum@Ubuntu.myguest.virtualbox.org>
+Date: Fri, 29 Aug 2025 23:04:24 +0530
+Subject: [PATCH] Restrict build to scull and misc-modules only
+
+---
+ Makefile | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 7b08c49..fb0d12e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,9 +1,6 @@
+ 
+-SUBDIRS =  misc-progs misc-modules \
+-           skull scull scullc scullp lddbus sculld scullv shortprint simple tty \
+-	   pci usb\
+-	   sbull snull short
+-
++SUBDIRS =  misc-modules scull 
++	   
+ all: subdirs
+ 
+ subdirs:

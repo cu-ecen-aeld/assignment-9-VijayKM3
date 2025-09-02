@@ -1,0 +1,43 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          scull
+# Required-Start:    $local_fs
+# Required-Stop:
+# Default-Start:     2 3 4 5
+# Default-Stop:
+# Short-Description: Load scull module and create device nodes
+### END INIT INFO
+
+DAEMON=scull
+MODPROBE=/sbin/modprobe
+INSMOD=/sbin/insmod
+RMMOD=/sbin/rmmod
+
+case "$1" in
+  start)
+    if [ -f /lib/modules/$(uname -r)/extra/scull.ko ]; then
+      $INSMOD /lib/modules/$(uname -r)/extra/scull.ko 2>/dev/null || $MODPROBE scull
+      # Create nodes if needed (typical scull majors are dynamic; parse /proc/devices)
+      MAJOR=$(awk '$2=="scull"{print $1}' /proc/devices)
+      [ -z "$MAJOR" ] && exit 0
+      mkdir -p /dev/scull
+      for n in 0 1 2 3; do
+        [ -e /dev/scull$n ] || mknod /dev/scull$n c $MAJOR $n
+      done
+    fi
+    ;;
+  stop)
+    $RMMOD scull 2>/dev/null || true
+    ;;
+  restart)
+    $0 stop
+    $0 start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0
+
