@@ -2,6 +2,9 @@ inherit core-image
 CORE_IMAGE_EXTRA_INSTALL += "aesd-assignments"
 CORE_IMAGE_EXTRA_INSTALL += "openssh"
 CORE_IMAGE_EXTRA_INSTALL += "scull misc-modules"
+CORE_IMAGE_EXTRA_INSTALL += "aesdchar"
+IMAGE_INSTALL:append = " aesdchar kernel-module-aesdchar"
+
 inherit extrausers
 # See https://docs.yoctoproject.org/singleindex.html#extrausers-bbclass
 # We set a default password of root to match our busybox instance setup

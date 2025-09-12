@@ -1,0 +1,32 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          aesdchar
+# Required-Start:    $local_fs
+# Required-Stop:
+# Default-Start:     2 3 4 5
+# Default-Stop:
+# Short-Description: AESD char driver init script
+### END INIT INFO
+
+case "$1" in
+  start)
+    modprobe aesdchar || insmod /lib/modules/$(uname -r)/extra/aesdchar.ko
+    rm -f /dev/aesdchar
+    major=$(awk "\$2==\"aesdchar\" {print \$1}" /proc/devices)
+    mknod /dev/aesdchar c $major 0
+    chmod 666 /dev/aesdchar
+    ;;
+  stop)
+    rmmod aesdchar
+    rm -f /dev/aesdchar
+    ;;
+  restart)
+    $0 stop
+    $0 start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
