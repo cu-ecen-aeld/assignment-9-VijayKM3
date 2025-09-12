@@ -16,10 +16,10 @@ jobs:
           - uses: webfactory/ssh-agent@v0.5.4
             with:
                  ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-	  - name: Cache Yocto downloads
+          - name: Cache Yocto downloads
             uses: actions/cache@v3
             with:
-            path: downloads
+            path: build/downloads
             key: downloads-${{ runner.os }}-${{ hashFiles('conf/**') }}
             restore-keys: |
             downloads-${{ runner.os }}-
@@ -27,7 +27,7 @@ jobs:
           - name: Cache Yocto sstate-cache
             uses: actions/cache@v3
             with:
-            path: sstate-cache
+            path: build/sstate-cache
             key: sstate-${{ runner.os }}-${{ hashFiles('conf/**') }}
             restore-keys: |
             sstate-${{ runner.os }}-
