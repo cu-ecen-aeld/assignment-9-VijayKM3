@@ -9,7 +9,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=779576fcdeab908dd6114ea1769bc64b"
 #SRC_URI = "git:///home/vijaykum/Assignment7;branch=main 
 
 SRC_URI = "git://github.com/cu-ecen-aeld/assignment-7-VijayKM3.git;protocol=https;branch=main \
-           file:///home/vijaykum/Assignment6/meta-aesd/recipes-scull/scull/scull/0001-Restrict-build-to-scull-and-misc-modules-only.patch \
+           file://0001-Restrict-build-to-scull-and-misc-modules-only.patch \
            file://scull.init "
            
 #SRCREV = "5c3cae6ddc96b8645dfa6f6bc4ddbba08aae8789"
