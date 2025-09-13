@@ -11,7 +11,8 @@ inherit update-rc.d
 PV = "1.0+git${SRCPV}"
 # TODO: set to reference a specific commit hash in your assignment repo
 #SRCREV = "8208d6e51b7e07c24517ee176395dd970664695f"
-SRCREV = "${AUTOREV}"
+#SRCREV = "${AUTOREV}"
+SRCREV = "5ea3998d2ea721f6a66395d0536a2bab3f92cf22"
 
 # This sets your staging directory based on WORKDIR, where WORKDIR is defined at 
 # https://docs.yoctoproject.org/ref-manual/variables.html?highlight=workdir#term-WORKDIR
